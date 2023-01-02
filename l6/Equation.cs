@@ -38,7 +38,7 @@ namespace l6
             double sum = 0;
             for (int i = 0; i < N; i++)
             {
-                sum = sum + equation.GetValue(x1 + i * h) * h;
+                sum += equation.GetValue(x1 + i * h) * h;
             }
             return sum;
         }
@@ -98,6 +98,11 @@ namespace l6
                 integr += y (x1 + i * h) * h; 
             }
             return integr;
+        }
+
+        public static explicit operator string(QuadIntegrator v)
+        {
+            throw new NotImplementedException();
         }
     }
 

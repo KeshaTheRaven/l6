@@ -18,7 +18,7 @@ namespace l6
             InitializeComponent();
         }
 
-        Equation a;
+        equation a;
         
        
 
@@ -37,6 +37,8 @@ namespace l6
                 chart1.Series[0].Points.AddXY(x1, a.GetValue(x1));
                 x1 += h;
             }
+            
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -52,6 +54,19 @@ namespace l6
         private void chart1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            QuadIntegrator f = new QuadIntegrator(a);
+            
+            
+            textBox3.Text = (string)f;
         }
     }
 }
