@@ -14,39 +14,28 @@ namespace l6
     public class Integrator
     {
         private readonly Equation equation;
-        /// <summary>
-        /// Конструктор класса "интегратор"
-        /// </summary>
-        /// <param name="equation">интегрируемое уравнение</param>
         public Integrator(Equation equation)
         {
-            //проверяем допустимость параметров:
+
             if (equation == null)
             {
                 throw new ArgumentNullException();
             }
             this.equation = equation;
         }
-        /// <summary>
-        /// Функция интегрирования
-        /// </summary>
-        /// <param name="x1">левая граница интегрирования</param>
-        /// <param name="x2">правая граница интегрирования</param>
+
         public double Integrate(double x1, double x2)
         {
-            //проверяем допустимость параметров:
+
             if (x1 >= x2)
             {
                 throw new ArgumentException("Правая граница интегирования должны быть больше левой!");
             }
-            /* для интегирования разобъем исходный отрезок на 100 точек. 
-             * Считаем значение функции в точке, умножаем на ширину интервала.
-             * Площадь полученного прямоугольника приблизительно равна значению интеграла на этом отрезке
-             * суммируем значения площадей, получаем значение интеграла на отрезке [X1;X2]*/
-            int N = 100;    //количество интервалов разбиения
-            //определяем ширину интервала:
+
+            int N = 100;
+
             double h = (x2 - x1) / N;
-            double sum = 0; //"накопитель" для значения интеграла
+            double sum = 0;
             for (int i = 0; i < N; i++)
             {
                 sum = sum + equation.GetValue(x1 + i * h) * h;
@@ -54,13 +43,13 @@ namespace l6
             return sum;
         }
     }
-    public class QuadEquation : Equation
+    public class equation : Equation
     {
         private readonly double a;
         private readonly double b;
         private readonly double c;
 
-        public QuadEquation(double a, double b, double c)
+        public equation(double a, double b, double c)
         {
             this.a = a;
             this.b = b;
@@ -88,6 +77,29 @@ namespace l6
         }
     }
 
+    public class QuadIntegrator : Integrator
+    {
+        
+        public delegate double GetY(double x);
+        GetY y;
+
+        public QuadIntegrator(Equation equation) : base(equation)
+        {
+            y = equation.GetValue;
+        }
+        public double Integrate(double x1, double x2)
+        {
+
+            int N = 100; 
+            double h = (x2 - x1) / N; 
+            double integr = 0;
+            for (int i = 0; i < N; i++) 
+            { 
+                integr += y (x1 + i * h) * h; 
+            }
+            return integr;
+        }
+    }
 
 
 }

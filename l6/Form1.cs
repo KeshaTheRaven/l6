@@ -19,9 +19,15 @@ namespace l6
         }
 
         Equation a;
+        
+       
+
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
+            a = new equation(1,2,3);
             chart1.Series[0].Points.Clear();
             double x1 = double.Parse(textBox1.Text);
             double x2 = double.Parse(textBox2.Text);
