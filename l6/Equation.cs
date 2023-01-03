@@ -79,7 +79,7 @@ namespace l6
 
     public class QuadIntegrator : Integrator
     {
-        
+
         public delegate double GetY(double x);
         GetY y;
 
@@ -87,24 +87,23 @@ namespace l6
         {
             y = equation.GetValue;
         }
-        public double Integrate(double x1, double x2)
+        public new double Integrate(double x1, double x2)
         {
 
-            int N = 100; 
-            double h = (x2 - x1) / N; 
+            int N = 100;
+            double h = (x2 - x1) / N;
             double integr = 0;
-            for (int i = 0; i < N; i++) 
-            { 
-                integr += y (x1 + i * h) * h; 
+            for (int i = 0; i < N; i++)
+            {
+                integr += y(x1 + i * h) * h;
             }
             return integr;
         }
 
-        public static explicit operator string(QuadIntegrator v)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 
 
+    
 }
+
