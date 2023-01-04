@@ -19,8 +19,7 @@ namespace l6
             button1.Enabled = true;
         }
 
-        Equation a;
-        Cos b;
+        public Equation  a;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -45,8 +44,8 @@ namespace l6
             }
             else if(c2 == 1)
             {
-                Cos cos = new Cos(1.0, 2.0);
-                Cos a = cos;
+               
+                 a = new Cos(0,1);
                 while (x1 <= x2)
                 {
                     chart1.Series[0].Points.AddXY(x1, a.GetValue(x1));
@@ -57,7 +56,7 @@ namespace l6
             if (c == 0)
             {
                 Integrator g = new Integrator(a);
-
+                textBox3.Text = g.Integrate(x1, x2).ToString();
             }
             else
             if (c == 1)
