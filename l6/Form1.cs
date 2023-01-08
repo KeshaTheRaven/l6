@@ -43,12 +43,12 @@ namespace l6
             double x2 = double.Parse(textBox2.Text);
             double q = x1;
             double h = 0.1;
-            
+            double a1 = double.Parse(textBox4.Text), b= double.Parse(textBox4.Text), c = double.Parse(textBox4.Text);
                 
             
             if (func == 0)
             {
-                a = new equation(1, 2, 3);
+                a = new equation(a1, b, c);
                 chart1.Series[0].Points.Clear();
                 
                 Draw(x1, x2, h, a);
@@ -111,6 +111,18 @@ namespace l6
             {
                 button1.Enabled = true;
             }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            a1 = double.Parse(textBox4.Text);
+            b = double.Parse(textBox4.Text);
+            c = double.Parse(textBox4.Text);
         }
     }
 }
