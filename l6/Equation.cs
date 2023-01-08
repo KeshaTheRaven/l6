@@ -77,33 +77,48 @@ namespace l6
         }
     }
 
-    public class QuadIntegrator : Integrator
+    public class Trap : Integrator
     {
-
-        public delegate double GetY(double x);
-        GetY y;
-
-        public QuadIntegrator(Equation equation) : base(equation)
-        {
-            y = equation.GetValue;
-        }
-        public new double Integrate(double x1, double x2)
+        public Trap (Equation equation) : base(equation)
         {
 
-            int N = 100;
-            double h = (x2 - x1) / N;
-            double integr = 0;
-            for (int i = 0; i < N; i++)
+            if (equation == null)
             {
-                integr += y(x1 + i * h) * h;
+                throw new ArgumentNullException();
             }
-            return integr;
+            
         }
 
+        public double Integrate(Equation equation, double x1, double x2, int N = 100)
+        {
+            if (equation == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (x1 >= x2)
+            {
+                throw new ArgumentException("Правая граница должна быть больше левой!");
+            }
+            double h = (x2 - x1) / N;
+            double sum = 0;
+            double sumf = ((equation.GetValue(x1 * h) + equation.GetValue(x2 * h))) / 2;
 
+
+            for (int i = 1; i < N; i++)
+            {
+
+                var r = equation.GetValue(x1 + i * h);
+                sum += (Double.IsNaN(r) ? 0 : r);
+            }
+            return h * (sum + sumf);
+
+        }
     }
 
 
-    
 }
+    
+
+  
+
 

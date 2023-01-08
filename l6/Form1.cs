@@ -18,7 +18,10 @@ namespace l6
             InitializeComponent();
             button1.Enabled = true;
         }
-
+        void Draw (double x1, double x2, double h, Equation equation)
+        {
+            chart1.Series[0].Points.AddXY(x1, a.GetValue(x1));
+        }
         public Equation  a;
 
         private void button1_Click(object sender, EventArgs e)
@@ -30,26 +33,27 @@ namespace l6
             
             double x1 = double.Parse(textBox1.Text);
             double x2 = double.Parse(textBox2.Text);
+            double q = x1;
             double h = 0.1;
             if (c2 == 0)
             {
                 a = new equation(1, 2, 3);
                 chart1.Series[0].Points.Clear();
-                while (x1 <= x2)
+                while (q < x2)
                 {
-                    chart1.Series[0].Points.AddXY(x1, a.GetValue(x1));
-                    x1 += h;
+                    Draw(q, x2, h, a);
+                    q += h;
                 }
 
             }
             else if(c2 == 1)
             {
                
-                 a = new Cos(0,1);
-                while (x1 <= x2)
+                 a = new Cos (x1,x2);
+                while (q < x2)
                 {
-                    chart1.Series[0].Points.AddXY(x1, a.GetValue(x1));
-                    x1 += h;
+                    Draw(q, x2, h, a);
+                    q += h;
                 }
             }
             
@@ -61,20 +65,15 @@ namespace l6
             else
             if (c == 1)
             {
-                QuadIntegrator g = new QuadIntegrator(a);
-
+                Trap g = new Trap(a);
                 textBox3.Text = g.Integrate(x1, x2).ToString();
             }
             else
             if(c == 2)
-            {   
-
-            }
-            else
-            if (c == 3)
             {
-
+                
             }
+            
 
         }
 
