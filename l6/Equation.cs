@@ -10,21 +10,26 @@ namespace l6
     {
         public abstract double GetValue(double x);
     }
-
-    public class Integrator
+    public abstract class integrator
     {
-        private readonly Equation equation;
-        public Integrator(Equation equation)
-        {
+        private Equation equation;
 
-            if (equation == null)
-            {
-                throw new ArgumentNullException();
-            }
+        protected integrator(Equation equation)
+        {
             this.equation = equation;
         }
 
-        public double Integrate(double x1, double x2)
+        public abstract double Integrate(double x1, double x2, Equation equation);
+    }
+    public class Integrator : integrator
+    {
+        private readonly Equation equation;
+
+        public Integrator(Equation equation) : base(equation)
+        {
+        }
+
+        public override double Integrate(double x1, double x2, Equation equation)
         {
 
             if (x1 >= x2)
@@ -42,6 +47,8 @@ namespace l6
             }
             return sum;
         }
+
+        
     }
     public class equation : Equation
     {
@@ -77,7 +84,7 @@ namespace l6
         }
     }
 
-    public class Trap : Integrator
+    public class Trap : integrator
     {
         public Trap(Equation equation) : base(equation)
         {
@@ -89,8 +96,10 @@ namespace l6
 
         }
 
-        public double Integrate(Equation equation, double x1, double x2, int N = 100)
+        public override double Integrate(double x1, double x2, Equation equation)
         {
+            
+            int N = 100;
             if (equation == null)
             {
                 throw new ArgumentNullException();
@@ -115,7 +124,7 @@ namespace l6
         }
     }
 
-    public class Simpson : Integrator
+    public class Simpson : integrator
     {
         public Simpson(Equation equation) : base(equation)
         {
@@ -124,10 +133,10 @@ namespace l6
                 throw new ArgumentNullException();
             }
         }
-        public double Integrate(double x1, double x2, Equation equation)
+        public override double Integrate(double x1, double x2, Equation equation)
         {
-            int N = 100; //Количество шагов
-            double h = (x2 - x1) / N; //Ширинa шага
+            int N = 100; 
+            double h = (x2 - x1) / N; 
             double integralSum = 0;
             double x = x1 + h;
             while (x < x2)

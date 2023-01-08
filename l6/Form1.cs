@@ -30,6 +30,7 @@ namespace l6
             Refresh();
         }
         public Equation  a;
+        public Integrator g;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -66,19 +67,19 @@ namespace l6
             if (integrator == 0)
             {
                 Integrator g = new Integrator(a);
-                textBox3.Text = g.Integrate(x1, x2).ToString();
+                textBox3.Text = g.Integrate(x1, x2,a).ToString();
             }
             else
             if (integrator == 1)
             {
                 Trap g = new Trap(a);
-                textBox3.Text = g.Integrate(x1, x2).ToString();
+                textBox3.Text = g.Integrate(x1, x2,a).ToString();
             }
             else
             if(integrator == 2)
             {
                 Simpson g = new Simpson(a);
-                textBox3.Text = g.Integrate(x1, x2).ToString();
+                textBox3.Text = g.Integrate(x1, x2, a).ToString();
             }
             
 
@@ -120,9 +121,7 @@ namespace l6
 
         private void button3_Click(object sender, EventArgs e)
         {
-            a1 = double.Parse(textBox4.Text);
-            b = double.Parse(textBox4.Text);
-            c = double.Parse(textBox4.Text);
+
         }
     }
 }
