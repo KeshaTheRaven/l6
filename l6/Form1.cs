@@ -16,60 +16,66 @@ namespace l6
         public Form1()
         {
             InitializeComponent();
-            button1.Enabled = true;
+            button1.Enabled = false;
         }
         void Draw (double x1, double x2, double h, Equation equation)
         {
-            chart1.Series[0].Points.AddXY(x1, a.GetValue(x1));
+            chart1.Series[0].Points.Clear();
+            double q = x1;
+            while (q < x2)
+            {
+                chart1.Series[0].Points.AddXY(q, a.GetValue(q));
+                q += h;
+            }
+            Refresh();
         }
         public Equation  a;
 
         private void button1_Click(object sender, EventArgs e)
         {
 
-            int c  = comboBox1.SelectedIndex;
-            int c2 = comboBox2.SelectedIndex;
+            
+            int integrator  = comboBox1.SelectedIndex;
+            int func = comboBox2.SelectedIndex;
 
             
             double x1 = double.Parse(textBox1.Text);
             double x2 = double.Parse(textBox2.Text);
             double q = x1;
             double h = 0.1;
-            if (c2 == 0)
+            
+                
+            
+            if (func == 0)
             {
                 a = new equation(1, 2, 3);
                 chart1.Series[0].Points.Clear();
-                while (q < x2)
-                {
-                    Draw(q, x2, h, a);
-                    q += h;
-                }
+                
+                Draw(x1, x2, h, a);
+                 
 
             }
-            else if(c2 == 1)
+            else if(func == 1)
             {
                
                  a = new Cos (x1,x2);
-                while (q < x2)
-                {
-                    Draw(q, x2, h, a);
-                    q += h;
-                }
+                 Draw(x1, x2, h, a);
+                 
             }
             
-            if (c == 0)
+            if (integrator == 0)
             {
                 Integrator g = new Integrator(a);
                 textBox3.Text = g.Integrate(x1, x2).ToString();
             }
             else
-            if (c == 1)
+            if (integrator == 1)
             {
                 Trap g = new Trap(a);
                 textBox3.Text = g.Integrate(x1, x2).ToString();
             }
             else
-            if(c == 2)
+            if(integrator == 2)
             {
                 Simpson g = new Simpson(a);
                 textBox3.Text = g.Integrate(x1, x2).ToString();
