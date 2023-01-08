@@ -71,7 +71,8 @@ namespace l6
             else
             if(c == 2)
             {
-                
+                Simpson g = new Simpson(a);
+                textBox3.Text = g.Integrate(x1, x2).ToString();
             }
             
 

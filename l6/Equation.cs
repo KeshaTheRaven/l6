@@ -79,14 +79,14 @@ namespace l6
 
     public class Trap : Integrator
     {
-        public Trap (Equation equation) : base(equation)
+        public Trap(Equation equation) : base(equation)
         {
 
             if (equation == null)
             {
                 throw new ArgumentNullException();
             }
-            
+
         }
 
         public double Integrate(Equation equation, double x1, double x2, int N = 100)
@@ -115,7 +115,36 @@ namespace l6
         }
     }
 
+    public class Simpson : Integrator
+    {
+        public Simpson(Equation equation) : base(equation)
+        {
+            if (equation == null)
+            {
+                throw new ArgumentNullException();
+            }
+        }
+        public double Integrate(double x1, double x2, Equation equation)
+        {
+            int N = 100; //Количество шагов
+            double h = (x2 - x1) / N; //Ширинa шага
+            double integralSum = 0;
+            double x = x1 + h;
+            while (x < x2)
+            {
+                integralSum += 4 * equation.GetValue(x);
+                x += h;
+                if (x >= x2)
+                    break;
+                integralSum += 2 * equation.GetValue(x);
+                x += h;
+            }
+            integralSum = (h / 3) * (integralSum + equation.GetValue(x1) + equation.GetValue(x2));
+            return integralSum;
+        }
 
+
+    }
 }
     
 
