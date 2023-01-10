@@ -45,7 +45,7 @@ namespace l6
             double q = x1;
             double h = 0.1;
             double a1 = double.Parse(textBox4.Text), b= double.Parse(textBox4.Text), c = double.Parse(textBox4.Text);
-                
+            int N = int.Parse(textBox7.Text);   
             
             if (func == 0)
             {
@@ -67,19 +67,19 @@ namespace l6
             if (integrator == 0)
             {
                 Integrator g = new Integrator(a);
-                textBox3.Text = g.Integrate(x1, x2,a).ToString();
+                textBox3.Text = g.Integrate(x1, x2, a, N).ToString();
             }
             else
             if (integrator == 1)
             {
                 Trap g = new Trap(a);
-                textBox3.Text = g.Integrate(x1, x2,a).ToString();
+                textBox3.Text = g.Integrate(x1, x2, a, N).ToString();
             }
             else
             if(integrator == 2)
             {
                 Simpson g = new Simpson(a);
-                textBox3.Text = g.Integrate(x1, x2, a).ToString();
+                textBox3.Text = g.Integrate(x1, x2, a, N).ToString();
             }
             
 
@@ -120,6 +120,11 @@ namespace l6
         }
 
         private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
         {
 
         }

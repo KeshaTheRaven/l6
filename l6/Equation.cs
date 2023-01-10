@@ -19,7 +19,7 @@ namespace l6
             this.equation = equation;
         }
 
-        public abstract double Integrate(double x1, double x2, Equation equation);
+        public abstract double Integrate(double x1, double x2, Equation equation, int N);
     }
     public class Integrator : integrator
     {
@@ -29,7 +29,7 @@ namespace l6
         {
         }
 
-        public override double Integrate(double x1, double x2, Equation equation)
+        public override double Integrate(double x1, double x2, Equation equation, int N)
         {
 
             if (x1 >= x2)
@@ -37,7 +37,7 @@ namespace l6
                 throw new ArgumentException("Правая граница интегирования должны быть больше левой!");
             }
 
-            int N = 100;
+            
 
             double h = (x2 - x1) / N;
             double sum = 0;
@@ -96,10 +96,10 @@ namespace l6
 
         }
 
-        public override double Integrate(double x1, double x2, Equation equation)
+        public override double Integrate(double x1, double x2, Equation equation, int N )
         {
             
-            int N = 100;
+            
             if (equation == null)
             {
                 throw new ArgumentNullException();
@@ -133,9 +133,9 @@ namespace l6
                 throw new ArgumentNullException();
             }
         }
-        public override double Integrate(double x1, double x2, Equation equation)
+        public override double Integrate(double x1, double x2, Equation equation, int N )
         {
-            int N = 100; 
+            
             double h = (x2 - x1) / N; 
             double integralSum = 0;
             double x = x1 + h;
