@@ -23,7 +23,7 @@ namespace l6
     }
     public class Integrator : integrator
     {
-        private readonly Equation equation;
+        
 
         public Integrator(Equation equation) : base(equation)
         {

@@ -51,17 +51,12 @@ namespace l6
             {
                 a = new equation(a1, b, c);
                 chart1.Series[0].Points.Clear();
-                
-                Draw(x1, x2, h, a);
-                 
-
+                Draw(x1, x2, h, a);        
             }
             else if(func == 1)
             {
-               
                  a = new Cos (x1,x2);
                  Draw(x1, x2, h, a);
-                 
             }
             
             if (integrator == 0)
